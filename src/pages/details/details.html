@@ -1,0 +1,72 @@
+<!--
+  Generated template for the DetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="title-color">
+        <ion-title class="titlefont-family">Restaurant Details</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-fab middle>
+        <button ion-fab (click)="prev()"><ion-icon name="arrow-dropleft" ></ion-icon></button>
+    </ion-fab>
+    <ion-fab middle right>
+        <button ion-fab (click)="next()"><ion-icon name="arrow-dropright" ></ion-icon></button>
+    </ion-fab>
+
+
+    <div *ngIf="slidesEnabled">
+        <ion-slides (ionSlideDidChange)="slideChanged()">
+            <div *ngFor="let item of listResData">
+                <ion-slide>
+
+                    <agm-map id="map" class="mapsection" [latitude]="item.lat" [longitude]="item.lng" [zoom]="17">
+                        <agm-marker [latitude]="item.lat" [longitude]="item.lng" [title]="item.name"></agm-marker>
+                    </agm-map>
+
+                    <div class="head-cont">
+
+                        <div class="res-title"> {{item.name}}</div>
+                        <div class="res-category"> {{item.description}}</div>
+                    </div>
+
+                    <div class="location"> {{item.address}}</div>
+                    <div class="contact"> {{item.contact}}</div>
+
+                </ion-slide>
+
+            </div>
+
+        </ion-slides>
+
+    </div>
+
+
+
+
+    <div *ngIf="!slidesEnabled">
+
+        <agm-map id="map" class="map" [latitude]="lat" [longitude]="lng" [zoom]="17">
+            <agm-marker [latitude]="lat" [longitude]="lng" [title]="resName"></agm-marker>
+        </agm-map>
+
+        <div class="head-cont">
+
+            <div class="res-tit"> {{resName}}</div>
+            <div class="res-cat"> {{catType}}</div>
+        </div>
+
+        <div class="loc"> {{location}}</div>
+        <div class="phon"> {{phone}}</div>
+
+    </div>
+
+
+</ion-content>

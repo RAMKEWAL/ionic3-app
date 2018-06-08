@@ -1,0 +1,35 @@
+<!--
+  Generated template for the LunchPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="title-color">
+        <ion-title class="head-title">Restaurants</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="card-background-page">
+
+    <ion-searchbar placeholder="Search shop's" (ionInput)="filterItems($event)" (ionCancel)="onCancel($event)" (ionClear)="onClear($event)"></ion-searchbar>
+    <div *ngIf="searchedList">
+        <div *ngFor="let item of searchData" class="searchedItem" (click)="showDetails(item)">
+            <h6>{{item.name}}</h6>
+        </div>
+    </div>
+
+    <ion-card *ngFor="let data of listResData" class="card-class" (click)="showDetails(data)">
+        <img src="{{data.backgroundImageURL}}" (click)="showDetails(data)" />
+        <div class="card-title">{{data.name}}</div>
+        <div class="card-subtitle">{{data.description}}</div>
+    </ion-card>
+
+
+
+
+
+</ion-content>
