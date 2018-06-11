@@ -10,7 +10,6 @@ import { DetailsPage } from '../pages/details/details';
 import { RestProvider } from '../providers/rest/rest';
 import {HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
-import { RestaurantlistProvider } from '../providers/restaurantlist/restaurantlist';
 @NgModule({
   declarations: [
     MyApp,
@@ -33,8 +32,7 @@ import { RestaurantlistProvider } from '../providers/restaurantlist/restaurantli
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RestProvider,
-    RestaurantlistProvider
+    RestProvider
   ]
 })
 export class AppModule {}

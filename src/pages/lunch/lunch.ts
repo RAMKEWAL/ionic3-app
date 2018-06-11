@@ -1,10 +1,8 @@
-import { DetailsPage } from './../details/details';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { RestProvider } from '../../providers/rest/rest';
-
-
-
+import { DetailsPage } from "./../details/details";
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { RestProvider } from "../../providers/rest/rest";
+import { Observable } from "rxjs/Observable";
 
 /**
  * Generated class for the LunchPage page.
@@ -15,70 +13,47 @@ import { RestProvider } from '../../providers/rest/rest';
 
 @IonicPage()
 @Component({
-  selector: 'page-lunch',
-  templateUrl: 'lunch.html',
+  selector: "page-lunch",
+  templateUrl: "lunch.html"
 })
 export class LunchPage {
-
   dataRest: any;
-  listResData:any;
-  itemdetails:any;
+  listResData: any;
+  itemdetails: any;
 
   searchedList: boolean;
-  searchData =[];
-  searchCounter = 0;
+  searchData = [];
+  restaurants: Observable<any>;
 
-
-
-
-  constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider: RestProvider) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public restProvider: RestProvider
+  ) {
     this.getResData();
-
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LunchPage');
+    console.log("ionViewDidLoad LunchPage");
   }
 
-  // getResData() {
-  //   this.restProvider.getData()
-  //   .then(data => {
-  //     this.dataRest = data;
-  //     this.listResData = this.dataRest.restaurants;
-  //     console.log("Lunch Page"+this.dataRest.restaurants);
-  //   });
-  // }
   getResData() {
-    this.restProvider.getData()
-    .then(data => {
-
+    this.restaurants = this.restProvider.getData();
+    this.restaurants.subscribe(data => {
+      //console.log("Res : ",data);
       this.listResData = data;
-
-      //console.log("Lunch Page"+JSON.stringify(data));
     });
   }
 
-  // showDetails(item_detals){
-  //   console.log("image clicked"+item_detals.name);
-  //   this.navCtrl.push(DetailsPage,{
-  //     Resname:item_detals.name,
-  //     CatType: item_detals.category,
-  //     Location: item_detals.location.formattedAddress[0],
-  //     Phone: item_detals.contact.formattedPhone,
-  //     Twitter:item_detals.contact.twitter,
-  //     Lat:item_detals.location.lat,
-  //     Lng:item_detals.location.lng
-  //   });
-  // }
-  showDetails(item_detals){
-    console.log("image clicked"+item_detals.name);
-    this.navCtrl.push(DetailsPage,{
-      Resname:item_detals.name,
+  showDetails(item_detals) {
+    //console.log("image clicked"+item_detals.name);
+    this.navCtrl.push(DetailsPage, {
+      Resname: item_detals.name,
       Des: item_detals.description,
       Location: item_detals.address,
       Phone: item_detals.contact,
-      Lat:item_detals.lat,
-      Lng:item_detals.lng
+      Lat: item_detals.lat,
+      Lng: item_detals.lng
     });
   }
 
@@ -96,26 +71,14 @@ export class LunchPage {
     if (val == "") {
       this.searchedList = false;
     } else {
-      //this.shopListPromotions = [];
       this.searchedList = true;
       if (val && val.trim() != "") {
-        this.searchData = this.searchData.filter(item => {
-          return item.name.toLowerCase().indexOf(val.toLowerCase()) > -1;
-        });
+        if (this.searchData != null) {
+          this.searchData = this.searchData.filter(item => {
+            return item.name.toLowerCase().indexOf(val.toLowerCase()) > -1;
+          });
+        }
       }
     }
   }
-  onCancel(event) {
-    this.searchedList = false;
-  }
-  onClear(event, myInput) {
-    this.searchCounter++;
-    if (this.searchCounter % 2 == 0) {
-      this.searchData = [];
-    }
-  }
-
-
-
-
 }

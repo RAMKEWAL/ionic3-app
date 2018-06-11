@@ -1,9 +1,3 @@
-<!--
-  Generated template for the DetailsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
     <ion-navbar color="title-color">
@@ -15,15 +9,15 @@
 
 <ion-content>
     <ion-fab middle>
-        <button ion-fab (click)="prev()"><ion-icon name="arrow-dropleft" ></ion-icon></button>
+        <button ion-fab mini (click)="prev()"><ion-icon name="arrow-dropleft" ></ion-icon></button>
     </ion-fab>
     <ion-fab middle right>
-        <button ion-fab (click)="next()"><ion-icon name="arrow-dropright" ></ion-icon></button>
+        <button ion-fab mini (click)="next()"><ion-icon name="arrow-dropright" ></ion-icon></button>
     </ion-fab>
 
 
     <div *ngIf="slidesEnabled">
-        <ion-slides (ionSlideDidChange)="slideChanged()">
+        <ion-slides>
             <div *ngFor="let item of listResData">
                 <ion-slide>
 
